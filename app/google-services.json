@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1069185592414",
+    "firebase_url": "https://wheelsy-65562.firebaseio.com",
+    "project_id": "wheelsy-65562",
+    "storage_bucket": "wheelsy-65562.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069185592414:android:87edcc2f95528fc2a718cf",
+        "android_client_info": {
+          "package_name": "site.qutayba.wheelsy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069185592414-ct64d6h3mntr6udcutld61qonq6u661l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWu0SrSaO0ptAfXlQL4na-MbUssku0IpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069185592414-ct64d6h3mntr6udcutld61qonq6u661l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
