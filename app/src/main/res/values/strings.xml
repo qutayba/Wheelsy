@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Wheelsy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="invalid_creds_title">Invalid credentials</string>
+    <string name="ìnvalid_creds_text">Your e-mail or password is invalid. Please, check your credentials and try again.</string>
+    <string name="close">Close</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="back">Back</string>
+    <string name="home">Home</string>
+    <string name="trips">Trips</string>
+    <string name="profile">Profile</string>
+    <string name="help">Help</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_kokok">kokok</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

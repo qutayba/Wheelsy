@@ -1,36 +1,73 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
-        <item name="android:background">@color/lightBackgroundColor</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+<!--        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>-->
+<!--        <item name="android:background">@color/lightBackgroundColor</item>-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <item name="android:textColorPrimary">@color/colorOnPrimary</item>
     </style>
 
-    <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
-        <item name="android:background">@color/colorSecondary</item>
+<!--    <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">-->
+<!--        <item name="android:background">@color/colorSecondary</item>-->
+<!--    </style>-->
+
+    <style name="AppTheme.Login" parent="Theme.MaterialComponents.Light.NoActionBar">
     </style>
 
-    <style name="AppTheme.Login" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/lightBackgroundColor</item>
+    <style name="AppTheme.Login.Title" parent="android:TextAppearance">
+        <item name="android:textColor">#CCCCCC</item>
     </style>
 
-    <style name="AppTheme.Button" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+    <style name="AppTheme.BottomNavigation" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">#EEEEEE</item>
+        <item name="itemTextColor">@drawable/bottom_nav_button</item>
+        <item name="itemIconTint">@drawable/bottom_nav_button</item>
     </style>
 
-    <style name="AppTheme.PrimaryButton" parent="AppTheme.Button">
-        <item name="android:background">@drawable/primary_button</item>
-        <item name="android:textColor">@color/lightBackgroundColor</item>
+    <style name="AppTheme.ActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.Title</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.ActionBar.Title" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+
+    <!--    <style name="AppTheme.Button" parent="@style/Widget.AppCompat.Button.Borderless">-->
+<!--        <item name="android:paddingTop">10dp</item>-->
+<!--        <item name="android:paddingBottom">10dp</item>-->
+<!--    </style>-->
+
+<!--    <style name="AppTheme.PrimaryButton" parent="AppTheme.Button">-->
+<!--        <item name="android:background">@drawable/primary_button</item>-->
+<!--        <item name="android:textColor">@color/lightBackgroundColor</item>-->
+
+<!--    </style>-->
+
+<!--    <style name="AppTheme.SecondaryButton" parent="AppTheme.Button">-->
+<!--        <item name="android:background">@drawable/secondary_button</item>-->
+<!--        <item name="android:textColor">@color/colorSecondaryText</item>-->
+
+<!--    </style>-->
+
+
+    <style name="AppTheme.Alert" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
 
     </style>
 
-    <style name="AppTheme.SecondaryButton" parent="AppTheme.Button">
-        <item name="android:background">@drawable/secondary_button</item>
-        <item name="android:textColor">@color/colorSecondaryText</item>
+    <style name="AppTheme.Alert.Danger" parent="AppTheme.Alert">
+        <item name="materialAlertDialogTitleTextStyle">@style/AppTheme.Alert.Danger.Text</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AppTheme.Alert.Danger.NegativeButton</item>
+    </style>
 
+    <style name="AppTheme.Alert.Danger.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/colorAncient</item>
+    </style>
+
+    <style name="AppTheme.Alert.Danger.NegativeButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorAncient</item>
     </style>
 </resources>
