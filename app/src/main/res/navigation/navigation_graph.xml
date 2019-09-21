@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/home_nav"
         android:name="site.qutayba.wheelsy.fragments.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/trips_nav"
         android:name="site.qutayba.wheelsy.fragments.TripsFragment"
-        android:label="fragment_trips"
+        android:label="@string/trips"
         tools:layout="@layout/fragment_trips" />
     <fragment
         android:id="@+id/profile_nav"
         android:name="site.qutayba.wheelsy.fragments.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

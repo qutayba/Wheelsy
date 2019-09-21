@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/faboptions_favorite"
+        android:icon="@drawable/baseline_help_black_24dp"
+        android:title="Favorite" />
+
+    <item
+        android:id="@+id/faboptions_textsms"
+        android:icon="@drawable/baseline_help_black_24dp"
+        android:title="Message" />
+
+    <item
+        android:id="@+id/faboptions_download"
+        android:icon="@drawable/baseline_help_black_24dp"
+        android:title="Download" />
+
+
+    <item
+        android:id="@+id/faboptions_share"
+        android:icon="@drawable/baseline_help_black_24dp"
+        android:title="Share" />
+</menu>

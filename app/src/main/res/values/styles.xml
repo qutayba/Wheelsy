@@ -6,7 +6,11 @@
 <!--        <item name="android:background">@color/lightBackgroundColor</item>-->
 <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
 <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <item name="android:itemTextAppearance">@style/AppTheme.ActionBar.ItemText</item>
         <item name="android:textColorPrimary">@color/colorOnPrimary</item>
+    </style>
+    <style name="AppTheme.ActionBar.ItemText" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
 <!--    <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">-->
@@ -69,5 +73,29 @@
 
     <style name="AppTheme.Alert.Danger.NegativeButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/colorAncient</item>
+    </style>
+
+
+    <style name="AppTheme.Home" ></style>
+    <style name="AppTheme.Home.FabOptions" parent="">
+
+    </style>
+    <style name="AppTheme.Home.KmCounter" >
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.Home.KmStatus" >
+        <item name="android:textColor">@color/colorSuccess75</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.Home.KmCounter.Help" >
+        <item name="android:textColor">#999999</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="AppTheme.Home.KmCounter.ProgressBar">
+
+        <item name="android:background">@drawable/circle_progress_shape</item>
     </style>
 </resources>
