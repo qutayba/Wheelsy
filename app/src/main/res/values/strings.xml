@@ -20,4 +20,5 @@
     <string name="profile">Profile</string>
     <string name="help">Help</string>
     <string name="logout">Logout</string>
+    <string name="no_trips_found">No trips found</string>
 </resources>

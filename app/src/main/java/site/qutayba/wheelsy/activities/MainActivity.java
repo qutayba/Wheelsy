@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,11 +58,16 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_logout:
                 logout();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
         }
 
@@ -99,6 +106,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private void initActionBar(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+        menu.findItem(R.id.app_bar_search).setVisible(false);
     }
 
     private void logout() {

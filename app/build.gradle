@@ -40,7 +40,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
     implementation "com.github.joaquimley:faboptions:1.2.0"
-
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
@@ -52,3 +52,4 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "androidx.navigation.safeargs"

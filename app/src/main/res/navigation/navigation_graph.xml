@@ -14,10 +14,27 @@
         android:id="@+id/trips_nav"
         android:name="site.qutayba.wheelsy.fragments.TripsFragment"
         android:label="@string/trips"
-        tools:layout="@layout/fragment_trips" />
+        tools:layout="@layout/fragment_trips" >
+        <action
+            android:id="@+id/action_trips_details"
+            app:destination="@id/trip_details_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim">
+
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/profile_nav"
         android:name="site.qutayba.wheelsy.fragments.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/trip_details_nav"
+        android:name="site.qutayba.wheelsy.fragments.TripDetailsFragment"
+        android:label="Trip details"
+        tools:layout="@layout/fragment_trip_details" >
+        <argument
+            android:name="trip"
+            app:argType="site.qutayba.wheelsy.models.Trip" />
+    </fragment>
 </navigation>
