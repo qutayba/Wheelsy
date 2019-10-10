@@ -21,4 +21,11 @@
     <string name="help">Help</string>
     <string name="logout">Logout</string>
     <string name="no_trips_found">No trips found</string>
+    <string name="google_maps_key">AIzaSyA-VVZdXnshBptC2XH-1hRFFjikApMQt-E</string>
+    <string name="share_trip_message">Wheelsy: The trip \"%s\" has been made with a distance of %s km.</string>
+    <string name="delete_trip_title">Delete trip?</string>
+    <string name="delete_trip_message">Are you sure you want to delete this trip?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="share_trip_title">Share a trip</string>
 </resources>

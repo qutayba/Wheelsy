@@ -23,9 +23,7 @@ import site.qutayba.wheelsy.R;
 import site.qutayba.wheelsy.databinding.FragmentHomeBinding;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;

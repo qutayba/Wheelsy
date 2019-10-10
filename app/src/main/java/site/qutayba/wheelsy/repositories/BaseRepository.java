@@ -75,4 +75,8 @@ public abstract class BaseRepository<T extends IModel> {
                 .setValue(model);
     }
 
+    public Task<Void> delete(T model) {
+        return databaseReference.child(model.getId()).removeValue();
+    }
+
 }
