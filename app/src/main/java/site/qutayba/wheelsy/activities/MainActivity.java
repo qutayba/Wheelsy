@@ -29,6 +29,7 @@ import site.qutayba.wheelsy.R;
 import site.qutayba.wheelsy.activities.LoginActivity;
 import site.qutayba.wheelsy.fragments.HomeFragment;
 import site.qutayba.wheelsy.fragments.TripsFragment;
+import site.qutayba.wheelsy.services.BackgroundService;
 
 public class MainActivity extends AppCompatActivity  {
 

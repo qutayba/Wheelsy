@@ -18,4 +18,5 @@
     <color name="colorDangerTransparent">#80F44336</color>
     <color name="colorWarning">#0277bd</color>
     <color name="colorWarningTransparent">#8003A9F4</color>
+    <color name="colorTextMuted">#C8999999</color>
 </resources>

@@ -28,4 +28,17 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="share_trip_title">Share a trip</string>
+    <string name="service_state">ServiceState</string>
+    <string name="state_running">Running</string>
+    <string name="state_paused">Paused</string>
+    <string name="state_stopped">Stopped</string>
+    <string name="state_reset">Restarting</string>
+    <string name="service_distance">ServiceDistance</string>
+    <string name="state_distance">ServiceDistance</string>
+    <string name="service_notifi_channel">Wheelsy service notification channel</string>
+    <string name="service_notifi_title">Wheelsy</string>
+    <string name="service_notifi_text">Service is running.</string>
+    <string name="service_notifi_text_paused">Service is paused.</string>
+    <string name="service_latitude">ServiceLatitude</string>
+    <string name="service_longitude">ServiceLongitude</string>
 </resources>
