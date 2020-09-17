@@ -99,29 +99,33 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
         List<LatLng> latLngs = new ArrayList<>();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-        // Building the locations array/builder
-        for (TripLocation location : binding.getTrip().getLocations()) {
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            latLngs.add(latLng);
-            builder.include(latLng);
-        }
+        // Checking if there are any locations stored for this trip
+        if(binding.getTrip().getLocations().size() > 0) {
 
-        // Getting the first and last locations to build the map markers
-        LatLng firstLoc = latLngs.get(0);
-        LatLng lastLoc = latLngs.get(latLngs.size() - 1);
+            // Building the locations array/builder
+            for (TripLocation location : binding.getTrip().getLocations()) {
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                latLngs.add(latLng);
+                builder.include(latLng);
+            }
+
+            // Getting the first and last locations to build the map markers
+            LatLng firstLoc = latLngs.get(0);
+            LatLng lastLoc = latLngs.get(latLngs.size() - 1);
+
+            // Setting the start and end makers in the map (first and last locations)
+            googleMap.addMarker(new MarkerOptions().position(firstLoc)
+                    .title(getString(R.string.start))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+            googleMap.addMarker(new MarkerOptions().position(lastLoc)
+                    .title(getString(R.string.end))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+        }
 
         // Building the poly line options
         PolylineOptions rectOptions = new PolylineOptions()
                 .addAll(latLngs)
-                .color(getContext().getResources().getColor(R.color.colorPrimary));
-
-        // Setting the start and end makers in the map (first and last locations)
-        googleMap.addMarker(new MarkerOptions().position(firstLoc)
-                .title(getString(R.string.start))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
-        googleMap.addMarker(new MarkerOptions().position(lastLoc)
-                .title(getString(R.string.end))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+                .color(getContext().getColor(R.color.colorPrimary));
 
         // Building the locations bounds
         LatLngBounds bounds = builder.build();
