@@ -36,9 +36,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import site.qutayba.wheelsy.R;
 import site.qutayba.wheelsy.databinding.FragmentTripDetailsBinding;
 import site.qutayba.wheelsy.models.Trip;
+import site.qutayba.wheelsy.models.TripLocation;
 import site.qutayba.wheelsy.repositories.TripRepository;
 
 
@@ -64,9 +68,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
         }
         binding.setHandler(this);
         binding.mapView.onCreate(mapViewBundle);
-
         binding.mapView.getMapAsync(this);
-
 
         Trip trip = TripDetailsFragmentArgs.fromBundle(getArguments()).getTrip();
         binding.setTrip(trip);
@@ -80,62 +82,75 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Handles on-ready state for the attached map view
+     * @param googleMap the attached map object
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
-            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style_2));
+        // Parsing and setting the custom map style for Google maps
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style_2));
 
-            if (!success) {
-                Log.e(TAG, "Style parsing failed.");
-            }
-        } catch (Resources.NotFoundException e) {
-            Log.e(TAG, "Can't find style. Error: ", e);
-        }
-
-
-        LatLng purmerend = new LatLng(52.509930, 4.945020);
-        LatLng amsterdam = new LatLng(52.373169, 4.890660);
-        LatLng l1 = new LatLng(52.494800, 5.071470);
-        PolylineOptions rectOptions = new PolylineOptions()
-                .add(purmerend,l1, amsterdam)
-                .color(getContext().getResources().getColor(R.color.colorPrimary));
-        googleMap.addMarker(new MarkerOptions().position(purmerend)
-                .title("Purmerend").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
-        googleMap.addMarker(new MarkerOptions().position(amsterdam)
-                .title("Amsterdam").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
-
+        // Initializing locations array/builder
+        List<LatLng> latLngs = new ArrayList<>();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-//the include method will calculate the min and max bound.
-        builder.include(purmerend);
-        builder.include(l1);
-        builder.include(amsterdam);
+        // Building the locations array/builder
+        for (TripLocation location : binding.getTrip().getLocations()) {
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            latLngs.add(latLng);
+            builder.include(latLng);
+        }
+
+        // Getting the first and last locations to build the map markers
+        LatLng firstLoc = latLngs.get(0);
+        LatLng lastLoc = latLngs.get(latLngs.size() - 1);
+
+        // Building the poly line options
+        PolylineOptions rectOptions = new PolylineOptions()
+                .addAll(latLngs)
+                .color(getContext().getResources().getColor(R.color.colorPrimary));
+
+        // Setting the start and end makers in the map (first and last locations)
+        googleMap.addMarker(new MarkerOptions().position(firstLoc)
+                .title(getString(R.string.start))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+        googleMap.addMarker(new MarkerOptions().position(lastLoc)
+                .title(getString(R.string.end))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+
+        // Building the locations bounds
         LatLngBounds bounds = builder.build();
 
+        // Adding poly line (based on the options above)
         googleMap.addPolyline(rectOptions);
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 100);
 
+        // Setting the camera distance in the map
         googleMap.animateCamera(cu, 2000, null);
         binding.mapView.onResume();
     }
 
+    /**
+     * Handles the share option for a trip. It triggers the default share popup of Android
+     * @param view the attached view
+     */
     public void onShareClick(View view) {
         String message = String.format(getString(R.string.share_trip_message), binding.getTrip().getName(), binding.getTrip().getFormattedDistance());
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
         share.putExtra(Intent.EXTRA_TEXT, message);
-
         startActivity(Intent.createChooser(share, getString(R.string.share_trip_title)));
     }
 
+    /**
+     * Handles the delete option for a trip by triggering a confirmation dialog
+     * @param view the attached view
+     */
     public void onDeleteClick(View view) {
         new MaterialAlertDialogBuilder(getContext(), R.style.AppTheme_Alert_Delete)
                 .setTitle(getString(R.string.delete_trip_title))
@@ -150,6 +165,10 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
                 .show();
     }
 
+    /**
+     * Deletes a trip from the backend
+     * @param trip The trip object to be deleted
+     */
     private void deleteTrip(Trip trip) {
         binding.setIsLoading(true);
         repository.delete(trip).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -157,7 +176,6 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
             public void onSuccess(Void aVoid) {
                 if(getActivity() != null)
                     getActivity().onBackPressed();
-
                 binding.setIsLoading(false);
             }
         });

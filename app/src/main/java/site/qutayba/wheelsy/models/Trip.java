@@ -3,17 +3,15 @@ package site.qutayba.wheelsy.models;
 import android.text.format.DateUtils;
 import android.util.Pair;
 
-import org.ocpsoft.prettytime.PrettyTime;
+import androidx.annotation.NonNull;
+
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
 
 public class Trip implements IModel, Serializable {
 
@@ -22,7 +20,7 @@ public class Trip implements IModel, Serializable {
     private String description;
     private float distance;
     private Date date;
-    private List<Pair<Double, Double>> locations;
+    private List<TripLocation> locations;
 
     public Trip() {
         locations = new ArrayList<>();
@@ -81,10 +79,17 @@ public class Trip implements IModel, Serializable {
     }
 
     public void addLocation(double latitude, double longitude) {
-        locations.add(new Pair<>(latitude, longitude));
+        locations.add(new TripLocation(latitude, longitude));
     }
 
-    public List<Pair<Double, Double>> getLocations() {
+    public List<TripLocation> getLocations() {
         return locations;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

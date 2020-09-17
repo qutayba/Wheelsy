@@ -53,7 +53,7 @@ public class TripsDataAdapter extends RecyclerView.Adapter<TripsDataAdapter.Trip
         return trips.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener<Trip> listener) {
         this.itemClickListener = listener;
     }
 
@@ -81,7 +81,7 @@ public class TripsDataAdapter extends RecyclerView.Adapter<TripsDataAdapter.Trip
         itemView.kmViewText.setTextColor(ContextCompat.getColor(itemView.getRoot().getContext(), textCOlor));
     }
 
-    class TripViewHolder extends RecyclerView.ViewHolder {
+    static class TripViewHolder extends RecyclerView.ViewHolder {
 
         private TripsListRowBinding itemView;
 

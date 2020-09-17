@@ -41,4 +41,17 @@
     <string name="service_notifi_text_paused">Service is paused.</string>
     <string name="service_latitude">ServiceLatitude</string>
     <string name="service_longitude">ServiceLongitude</string>
+    <string name="save_trip_title">Save trip?</string>
+    <string name="save_trip_message">Do you want to save this trip?</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="new_trip">New trip</string>
+    <string name="trip_name">Trip name</string>
+    <string name="trip_description">Trip description</string>
+    <string name="error_message_required">Required field</string>
+    <string name="created_successfully">Created successfully!</string>
+    <string name="somthing_went_wrong">Something went wrong!</string>
+    <string name="trip_created_success_message">Trip has been created successfully.</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
 </resources>

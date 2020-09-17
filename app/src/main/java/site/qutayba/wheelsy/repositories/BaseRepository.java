@@ -1,12 +1,9 @@
 package site.qutayba.wheelsy.repositories;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,12 +12,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import site.qutayba.wheelsy.models.IModel;
-import site.qutayba.wheelsy.models.Trip;
 
 public abstract class BaseRepository<T extends IModel> {
 
@@ -73,6 +66,12 @@ public abstract class BaseRepository<T extends IModel> {
         return databaseReference
                 .child(model.getId())
                 .setValue(model);
+    }
+
+    public Task<Void> create(T model) {
+        String key = databaseReference.push().getKey();
+        model.setId(key);
+        return save(model);
     }
 
     public Task<Void> delete(T model) {

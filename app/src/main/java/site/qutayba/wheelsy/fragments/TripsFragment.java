@@ -78,14 +78,12 @@ public class TripsFragment extends Fragment implements OnItemClickListener<Trip>
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
         super.onCreateOptionsMenu(menu,inflater);
         initSearchView(menu);
     }
 
     @Override
     public void onItemClick(Trip item) {
-
         TripsFragmentDirections.ActionTripsDetails action = TripsFragmentDirections.actionTripsDetails(item);
         Navigation
                 .findNavController(getView())
@@ -97,7 +95,6 @@ public class TripsFragment extends Fragment implements OnItemClickListener<Trip>
     }
 
     private void initRecyclerScrollListener() {
-
         binding.tripsRecycler.addOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore() {
@@ -107,7 +104,6 @@ public class TripsFragment extends Fragment implements OnItemClickListener<Trip>
             }
         });
     }
-
 
     private void initSearchView(@NonNull Menu menu) {
         // Getting the search item from the action-bar
@@ -137,9 +133,7 @@ public class TripsFragment extends Fragment implements OnItemClickListener<Trip>
         });
     }
 
-
     private void getTrips() {
-
         String sort = search != null && search.length() > 0? "name" : "date";
         repository.get(Trip.class, skip, take, sort, search, new DataListener<Trip>() {
             @Override
@@ -161,11 +155,10 @@ public class TripsFragment extends Fragment implements OnItemClickListener<Trip>
     private void configurePagination() {
         take = take + MAX_ITEMS_PER_PAGE;
     }
+
     private void configureSearch(@Nullable  String keyword) {
         this.search = keyword;
         binding.setIsScrollLoading(true);
         this.getTrips();
     }
-
-
 }

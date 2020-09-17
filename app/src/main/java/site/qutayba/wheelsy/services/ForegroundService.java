@@ -66,7 +66,6 @@ public class ForegroundService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "My Service Stopped", Toast.LENGTH_LONG).show();
         locations.clear();
         distance = 0;
         handler.removeCallbacks(serviceRunnable);
@@ -108,7 +107,7 @@ public class ForegroundService extends Service {
 
                 // Adding the new distance to the total distance in KM
                 distance = distance + (newDistance / 1000);
-                Log.i("SERVICE", "New distance: " + (newDistance / 1000) + ", Total: " + distance);
+                Log.d("SERVICE", "New distance: " + (newDistance / 1000) + ", Total: " + distance);
 
                 // Adding the new location to the locations list
                 locations.add(location);
@@ -144,7 +143,7 @@ public class ForegroundService extends Service {
      * Handles the service job
      */
     private void handle() {
-        Log.i("SERVICE","handle()");
+        Log.d("SERVICE","handle()");
 
         // Get the current state
         ServiceState newState = ServiceHelper.getState(this);

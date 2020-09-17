@@ -34,6 +34,10 @@ public class HomeViewModel extends BaseObservable {
         return String.format("%.1f", trip.getDistance());
     }
 
+    public Trip getTrip() {
+        return trip;
+    }
+
     public ServiceState getState() {
         return state;
     }
@@ -50,5 +54,9 @@ public class HomeViewModel extends BaseObservable {
 
     public void addLocation(double latitude, double longitude) {
         trip.addLocation(latitude, longitude);
+    }
+
+    public boolean requiresConfirmation() {
+        return this.trip.getDistance() > 0 || this.trip.getLocations().size() > 0;
     }
 }
