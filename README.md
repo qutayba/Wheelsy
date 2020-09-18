@@ -16,21 +16,21 @@ The scope of this assignment is to make an Android application that uses two nat
 - [x] User login session check
 - [ ] Forget password option
 
-## Trips registration
+### Trips registration
 
 - [x] Creating trips based on the user's location
 - [x] Using camera to take photos and include them with the trip information
 - [x] Handling the user's request to start, pause, stop or reset the location tracker
 - [x] Showing the distance that has been made by the user
 
-## Trips list
+### Trips list
 
 - [x] Showing the stored trips in a list view
 - [x] Styling the list to show the basic information of the trips
 - [x] Filter options for the list
 - [ ] Sorting option for the list
 
-## Trip details
+### Trip details
 
 - [x] Showing the trip route in Google Maps view
 - [x] Showing the trip's details
