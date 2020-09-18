@@ -13,14 +13,17 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,6 +83,7 @@ public class HomeFragment extends Fragment {
 
         IntentFilter intentFilter = new IntentFilter(ForegroundService.BROADCAST_ACTION);
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
+
         return binding.getRoot();
     }
 

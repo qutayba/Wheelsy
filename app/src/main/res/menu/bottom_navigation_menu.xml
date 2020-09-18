@@ -12,6 +12,6 @@
         android:title="@string/trips" />
     <item
         android:id="@+id/profile_nav"
-        android:icon="@drawable/baseline_person_black_24dp"
-        android:title="@string/profile" />
+        android:icon="@drawable/baseline_help_black_24dp"
+        android:title="@string/help" />
 </menu>

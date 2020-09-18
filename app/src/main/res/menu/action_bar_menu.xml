@@ -14,9 +14,4 @@
         android:title="@string/logout"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_help"
-        android:icon="@drawable/baseline_help_white_18dp"
-        android:title="@string/help"
-        app:showAsAction="never" />
 </menu>

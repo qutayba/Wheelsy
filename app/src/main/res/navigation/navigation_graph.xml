@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/profile_nav"
         android:name="site.qutayba.wheelsy.fragments.ProfileFragment"
-        android:label="@string/profile"
+        android:label="@string/help"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/trip_details_nav"
