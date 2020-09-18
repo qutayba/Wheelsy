@@ -1,7 +1,18 @@
 # Wheelsy
 
-This project is meant to resit the course Mobile Infrastructure & Securtiy.
-The project is an Android app that collects data from the users and sends it to the backend (Firebase). The users can view the history of their trips and visited locations in the app.
+This project is meant to resit the course Mobile Infrastructure & Securtiy. The project is an Android app that collects data from the users and sends it to the backend (Firebase). The users can view the history of their trips and visited locations in the app.
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="https://iili.io/2zlm2p.png" width="200px" style="display:inline-block" /></td>
+    <td><img src="https://iili.io/2zltEv.png" width="200px" style="display:inline-block" /></td>
+    <td><img src="https://iili.io/2zlLQa.png" width="200px" style="display:inline-block" /></td>
+    <td><img src="https://iili.io/2zlD4R.png" width="200px" style="display:inline-block" /></td>
+  </tr>
+</table
+
+---
+
 
 ## Assignment
 
