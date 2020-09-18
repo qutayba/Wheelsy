@@ -92,4 +92,6 @@ public class Trip implements IModel, Serializable {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
+
+
 }

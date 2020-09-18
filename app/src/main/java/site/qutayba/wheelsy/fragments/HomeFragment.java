@@ -11,24 +11,28 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,6 +46,9 @@ import site.qutayba.wheelsy.repositories.TripRepository;
 import site.qutayba.wheelsy.services.ForegroundService;
 import site.qutayba.wheelsy.viewmodels.HomeViewModel;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
 
 public class HomeFragment extends Fragment {
 
@@ -50,11 +57,15 @@ public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
     private LocalBroadcastManager broadcastManager;
 
+    private ImageView[] images;
+    private int selectedImageViewIndex;
+
     private final String LOG_TAG = "HomeFragment";
 
     public HomeFragment() {
         // Required empty public constructor
         tripRepository = new TripRepository();
+        images = new ImageView[3];
     }
 
     @Override
@@ -70,6 +81,17 @@ public class HomeFragment extends Fragment {
         IntentFilter intentFilter = new IntentFilter(ForegroundService.BROADCAST_ACTION);
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_CANCELED)
+            return;
+        if (resultCode == RESULT_OK && data != null) {
+            Bitmap image = (Bitmap) data.getExtras().get("data");
+            images[selectedImageViewIndex].setImageBitmap(image);
+            images[selectedImageViewIndex].setTag("captured");
+        }
     }
 
     /**
@@ -147,6 +169,7 @@ public class HomeFragment extends Fragment {
 
     /**
      * Handles the state changes
+     *
      * @param state the service's state
      */
     private void updateState(ServiceState state) {
@@ -171,6 +194,7 @@ public class HomeFragment extends Fragment {
 
     /**
      * Checks if the background service is running
+     *
      * @return true if the service is running, otherwise false
      */
     private boolean isServiceRunning() {
@@ -222,6 +246,20 @@ public class HomeFragment extends Fragment {
         // Getting the custom view of create trip dialog
         final View customLayout = getLayoutInflater().inflate(R.layout.trip_create, null);
 
+        // Setting image-views click handlers
+        images[0] = customLayout.findViewById(R.id.imageView1);
+        images[1] = customLayout.findViewById(R.id.imageView2);
+        images[2] = customLayout.findViewById(R.id.imageView3);
+        for (int i = 0; i < images.length; i++) {
+            final int index = i;
+            images[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showAddPhotoDialog(index);
+                }
+            });
+        }
+
         // Configuring the dialog builder
         builder.setView(customLayout);
         builder
@@ -234,7 +272,7 @@ public class HomeFragment extends Fragment {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(final DialogInterface dialog) {
-                Button saveButton = ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                Button saveButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -249,6 +287,7 @@ public class HomeFragment extends Fragment {
 
     /**
      * Creates the current trip from the view-model
+     *
      * @param dialogView the custom view of the create trip dialog
      */
     private void createTrip(View dialogView, DialogInterface dialog) {
@@ -280,7 +319,8 @@ public class HomeFragment extends Fragment {
 
         // Creates a new trip in the backend and handles the task result
         Task<Void> saveTask = tripRepository.create(trip);
-        saveTask
+        Task<Void> uploadImagesTask = updateSelectedImages(trip);
+        Tasks.whenAll(saveTask, uploadImagesTask)
                 .addOnSuccessListener(new OnSuccessListener() {
                     @Override
                     public void onSuccess(Object o) {
@@ -301,5 +341,29 @@ public class HomeFragment extends Fragment {
                                 .show();
                     }
                 });
+    }
+
+    private void showAddPhotoDialog(int imageViewIndex) {
+        selectedImageViewIndex = imageViewIndex;
+        Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePicture, 0);
+    }
+
+    private Task<Void> updateSelectedImages(Trip trip) {
+        Bitmap[] bitmaps = new Bitmap[images.length];
+
+        for (int i = 0; i < images.length; i++) {
+            if (images[i].getTag() != "captured")
+                continue;
+
+            Bitmap bitmap = ((BitmapDrawable) images[i].getDrawable()).getBitmap();
+            if (bitmap != null)
+                bitmaps[i] = bitmap;
+        }
+
+        if (bitmaps.length > 0)
+            return tripRepository.uploadImages(trip, bitmaps);
+
+        return null;
     }
 }

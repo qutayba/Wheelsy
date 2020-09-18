@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -17,10 +19,12 @@ import site.qutayba.wheelsy.models.IModel;
 
 public abstract class BaseRepository<T extends IModel> {
 
-    private DatabaseReference databaseReference;
+    protected DatabaseReference databaseReference;
+    protected StorageReference storageReference;
 
     public BaseRepository(String reference) {
         this.databaseReference = FirebaseDatabase.getInstance().getReference(reference);
+        this.storageReference = FirebaseStorage.getInstance().getReference();
     }
 
     public void get(final Class<T> tClass, @Nullable Integer skip, @Nullable Integer take, @Nullable String sort, @Nullable String search, final DataListener<T> listener) {

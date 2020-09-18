@@ -3,22 +3,18 @@ package site.qutayba.wheelsy.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,12 +25,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+import com.mzelzoghbi.zgallery.ZGallery;
+import com.mzelzoghbi.zgallery.entities.ZColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +49,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String TAG = "TRIP DETAIL FRAGMENT";
     private TripRepository repository;
-
+    private List<String> images = new ArrayList<>();
     public TripDetailsFragment() {
         repository = new TripRepository();
     }
@@ -61,6 +58,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trip_details, container, false);
+
         setHasOptionsMenu(true);
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -72,7 +70,11 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
 
         Trip trip = TripDetailsFragmentArgs.fromBundle(getArguments()).getTrip();
         binding.setTrip(trip);
-        return binding.getRoot();
+
+        View rootView = binding.getRoot();
+        loadTripImages(trip);
+
+        return rootView;
     }
 
     @Override
@@ -87,6 +89,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
 
     /**
      * Handles on-ready state for the attached map view
+     *
      * @param googleMap the attached map object
      */
     @Override
@@ -100,7 +103,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         // Checking if there are any locations stored for this trip
-        if(binding.getTrip().getLocations().size() > 0) {
+        if (binding.getTrip().getLocations().size() > 0) {
 
             // Building the locations array/builder
             for (TripLocation location : binding.getTrip().getLocations()) {
@@ -139,8 +142,17 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
         binding.mapView.onResume();
     }
 
+    public void onGalleryClick(View view) {
+        ZGallery.with(getActivity(), new ArrayList<>(images))
+                .setToolbarTitleColor(ZColor.WHITE) // toolbar title color
+                .setGalleryBackgroundColor(ZColor.WHITE) // activity background color
+                .setToolbarColorResId(R.color.colorPrimary) // toolbar color
+                .show();
+    }
+
     /**
      * Handles the share option for a trip. It triggers the default share popup of Android
+     *
      * @param view the attached view
      */
     public void onShareClick(View view) {
@@ -153,6 +165,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
 
     /**
      * Handles the delete option for a trip by triggering a confirmation dialog
+     *
      * @param view the attached view
      */
     public void onDeleteClick(View view) {
@@ -171,6 +184,7 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
 
     /**
      * Deletes a trip from the backend
+     *
      * @param trip The trip object to be deleted
      */
     private void deleteTrip(Trip trip) {
@@ -178,11 +192,52 @@ public class TripDetailsFragment extends Fragment implements OnMapReadyCallback 
         repository.delete(trip).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                if(getActivity() != null)
+                if (getActivity() != null)
                     getActivity().onBackPressed();
                 binding.setIsLoading(false);
             }
         });
 
     }
+
+    private void loadTripImages(Trip trip) {
+        repository.getImagesList(trip)
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        final List<StorageReference> items = listResult.getItems();
+                        for (int i = 0; i < items.size(); i++) {
+                            final boolean isLast = i == (items.size() - 1);
+                            items.get(i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    setImage(uri);
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+
+    private void setImage(Uri uri) {
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+//
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getPixels(30f),  getPixels(30f));
+//        layoutParams.setMargins(0, 0, getPixels(5f), getPixels(10f));
+//        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+////        ImageView imageView = new ImageView(getContext());
+////        imageView.setImageBitmap(bitmap);
+////        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+////        imageView.setLayoutParams(layoutParams);
+////        imagesHolder.addView(imageView);
+//
+//
+//        CircleImageView imageView = new CircleImageView(getContext());
+//        imageView.setImageBitmap(bitmap);
+//        imageView.setLayoutParams(layoutParams);
+//
+//        imagesHolder.addView(imageView);
+        images.add(uri.toString());
+    }
+
 }

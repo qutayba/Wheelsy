@@ -57,9 +57,13 @@
 
 <!--    </style>-->
 
-
     <style name="AppTheme.Alert" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
 
+    </style>
+
+    <style name="ImageGalleryTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.Alert.Delete" parent="AppTheme.Alert">
