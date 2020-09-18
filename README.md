@@ -7,8 +7,6 @@ The project is an Android app that collects data from the users and sends it to 
 
 The scope of this assignment is to make an Android application that uses two native sensors of the device. The application must collect some sort of data and push it to the backend to be stored for further use.
 
-## <br/><br/>
-
 ## Requirements
 
 ### Authentication
@@ -40,8 +38,6 @@ The scope of this assignment is to make an Android application that uses two nat
 - [x] Option to delete a trip
 - [x] Showing the trip's photos
 
-## <br/><br/>
-
 ## Technical info
 
 ## Backend
@@ -49,8 +45,6 @@ The scope of this assignment is to make an Android application that uses two nat
 - Firebase realtime database: To store the trips information in document-based database
 - Firebase auth: To handel the authentication of the app (login, users...etc)
 - Firebase storage: To store the images of th trips
-
-<br/>
 
 ## App
 
