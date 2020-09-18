@@ -37,7 +37,6 @@ dependencies {
     api 'com.google.android.material:material:1.2.0-alpha05'
 
     implementation 'com.github.mzelzoghbi:zgallery:0.3'
-    implementation 'com.github.stfalcon:multiimageview:0.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation "com.github.joaquimley:faboptions:1.2.0"
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
